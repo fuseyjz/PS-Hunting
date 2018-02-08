@@ -4,7 +4,7 @@ function Get-CustomSdb {
 
         Author: Jayden Zheng (@fuseyjz)
 
-        Company: Countercept
+        Company: Countercept (@countercept)
         
         Checks for custom installed shims database.
 
