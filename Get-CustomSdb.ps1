@@ -40,7 +40,7 @@ function Get-CustomSdb {
 
         if ($GetDesc) {
             Write-Host "Description: $GetDesc"
-            Write-Host "Path: $GetPath"
+            Write-Host "Path: $GetPath `n"
         }
     }
 }
