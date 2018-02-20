@@ -3,18 +3,18 @@ function Get-CustomSdb {
     .SYNOPSIS
 
         Author: Jayden Zheng (@fuseyjz)
-
-        Company: Countercept (@countercept)
         
+        Company: Countercept (@countercept)
+
         Checks for custom installed shims database.
 
     .EXAMPLE
 
         PS C:\> Get-CustomSdb
 
-        Return those installed sdb registry keys and content.
+        Return those installed sdb registry keys.
 #>
-    Write-Host "Query: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom `n"
+    Write-Host "Checking: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom"
 
     Get-ChildItem -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom" -Recurse | ForEach-Object {
 
@@ -31,20 +31,16 @@ function Get-CustomSdb {
 
     }
 
-    Write-Host "============================================== `n"
-    Write-Host "Query: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB `n"
+    Write-Host "Checking: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB"
 
     Get-ChildItem -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB" -Recurse | Get-ItemProperty |  ForEach-Object {
 
         $GetDesc = $_.DatabaseDescription
         $GetPath = $_.DatabasePath
-        $GetCont = Get-Content -Path $GetPath | Select-Object -Last 1
 
         if ($GetDesc) {
             Write-Host "Description: $GetDesc"
             Write-Host "Path: $GetPath"
-            Write-Host "Content of sdb: `n"
-            Write-Host "$GetCont `n"
         }
     }
 }
