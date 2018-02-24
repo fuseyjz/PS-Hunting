@@ -3,8 +3,6 @@ function Get-JunctionFolder {
     .SYNOPSIS
 
         Author: Jayden Zheng (@fuseyjz)
-        
-        Company: Countercept (@countercept)
 
         Checks the start menu directory for any folder name with CLSID.
 
