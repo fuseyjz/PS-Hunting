@@ -13,7 +13,7 @@ function Get-CustomSdb {
         Return those installed sdb registry keys and content of the sdb.
 #>
 
-    #Function from https://cyber-defense.sans.org/blog/2010/02/11/powershell-byte-array-hex-convert
+    # from https://cyber-defense.sans.org/blog/2010/02/11/powershell-byte-array-hex-convert
     function Convert-HexStringToByteArray
     {
         [CmdletBinding()]
@@ -66,7 +66,7 @@ function Get-CustomSdb {
         $index = $hex.IndexOf("0970")
         $chop = $hex.Substring($index)
         $out = Convert-HexStringToByteArray $chop
-        $output = [System.Text.Encoding]::ASCII.GetString($out)
+        $output = [System.Text.Encoding]::Unicode.GetString($out)
 
         if ($GetPath) {
             Write-Host "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB"
