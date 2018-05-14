@@ -1,2 +1,2 @@
-# ps-hunting
-Powershell scripts for threat hunting
+# PS-Hunting
+PowerShell scripts for Threat Hunting
