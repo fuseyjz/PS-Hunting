@@ -1,2 +1,1 @@
-
-Scripts for Threat Hunting
+Scripts for hunting usage
