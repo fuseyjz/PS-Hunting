@@ -5,6 +5,8 @@ function Get-CustomSdb {
         Author: Jayden Zheng (@fuseyjz)
         
         Checks for custom installed shims database.
+        
+        Blog: https://www.countercept.com/our-thinking/hunting-for-application-shim-databases/
 
     .EXAMPLE
 
