@@ -5,6 +5,8 @@
         Author: Jayden Zheng (@fuseyjz)
 
         Check the carved memory file for presence of Meterpreter C2.
+        
+        Blog: https://www.countercept.com/our-thinking/retrieving-meterpreter-c2-from-memory/
 
     .EXAMPLE
      
