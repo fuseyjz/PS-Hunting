@@ -171,7 +171,7 @@ function EventID-4 {
             $AlertDetail | Add-Member -MemberType Noteproperty -Name "Event ID 4" -Value SysmonService
             $AlertDetail | Add-Member -MemberType Noteproperty -Name Host -Value $User
             $AlertDetail | Add-Member -MemberType Noteproperty -Name TimeCreated -Value $_.TimeCreated
-            $AlertDetail | Add-Member -MemberType Noteproperty -Name State -Value $_.Properties[2].Value
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name State -Value $_.Properties[1].Value
             Write-Output $AlertDetail
             $ConvertToString = $AlertDetail | Out-String
             Slack($ConvertToString)
