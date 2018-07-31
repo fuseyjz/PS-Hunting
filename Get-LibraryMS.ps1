@@ -7,8 +7,6 @@
         Checks the %USERPROFILE% directory for any file with library-ms extension and extract the CLSID.
         In particular, <url> element with shell command.
 
-        Blog: pending release
-
     .EXAMPLE
         
         PS C:\> Import-Module .\Get-LibraryMS.ps1
