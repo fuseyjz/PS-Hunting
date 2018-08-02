@@ -8,8 +8,10 @@
         notice the user via Slack Incoming Webhook for any new events.
 
     .DESCRIPTION
-
-        Currently this script only filters for certain Sysmon Event IDs (1,3,4,8,11,13).
+        
+        Sysmon v8.0
+        
+        Currently this script only filters for certain Sysmon Event IDs.
         
         It works by checking the time difference between current time and 
         the event generated time, then pull the events that are within the time difference,
@@ -59,7 +61,7 @@
         } catch {
             Write-Host "[-] Failed to run EventID-1"
         }
-
+        
         try {
             EventID-3
         } catch {
@@ -71,23 +73,47 @@
         } catch {
             Write-Host "[-] Failed to run EventID-4"
         }
-
+        
+        try {
+            EventID-5
+        } catch {
+            Write-Host "[-] Failed to run EventID-5"
+        }
+         
+        try {
+            EventID-6
+        } catch {
+            Write-Host "[-] Failed to run EventID-6"
+        }
+        
         try {
             EventID-8
         } catch {
             Write-Host "[-] Failed to run EventID-8"
         }
-
+        
         try {
             EventID-11
         } catch {
             Write-Host "[-] Failed to run EventID-11"
         }
-
+        
+        try {
+            EventID-12
+        } catch {
+            Write-Host "[-] Failed to run EventID-12"
+        }
+            
         try {
             EventID-13
         } catch {
             Write-Host "[-] Failed to run EventID-13"
+        }
+        
+        try {
+            EventID-16
+        } catch {
+            Write-Host "[-] Failed to run EventID-16"
         }
 
         # Sleep 10 mins
@@ -180,6 +206,56 @@ function EventID-4 {
 
 }
 
+function EventID-5 {
+
+    # ProcessTerminate
+    $User = $env:COMPUTERNAME + "\" + $env:USERNAME
+    Get-WinEvent -FilterHashtable @{LogName="Microsoft-Windows-Sysmon/Operational";id=5} | ForEach-Object {
+        $TimeNow = Get-Date -Format d
+        $TimeNow += " "
+        $TimeNow += Get-Date -Format T
+        $Diff = New-TimeSpan -Start $_.TimeCreated -End $TimeNow
+        if ($Diff.Days -eq "0" -and $Diff.Hours -eq "0" -and $Diff.Minutes -lt "10") {
+            $AlertDetail = New-Object PSObject
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name "Event ID 5" -Value ProcessTerminate
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name Host -Value $User
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name TimeCreated -Value $_.TimeCreated
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name ProcessId -Value $_.Properties[3].Value
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name Image -Value $_.Properties[4].Value
+            Write-Output $AlertDetail
+            $ConvertToString = $AlertDetail | Out-String
+            Slack($ConvertToString)
+        }
+    }
+
+}
+
+function EventID-6 {
+
+    # DriverLoad
+    $User = $env:COMPUTERNAME + "\" + $env:USERNAME
+    Get-WinEvent -FilterHashtable @{LogName="Microsoft-Windows-Sysmon/Operational";id=6} | ForEach-Object {
+        $TimeNow = Get-Date -Format d
+        $TimeNow += " "
+        $TimeNow += Get-Date -Format T
+        $Diff = New-TimeSpan -Start $_.TimeCreated -End $TimeNow
+        if ($Diff.Days -eq "0" -and $Diff.Hours -eq "0" -and $Diff.Minutes -lt "10") {
+            $AlertDetail = New-Object PSObject
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name "Event ID 6" -Value DriverLoad
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name Host -Value $User
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name TimeCreated -Value $_.TimeCreated
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name ImageLoaded -Value $_.Properties[2].Value
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name Signed -Value $_.Properties[4].Value
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name Signature -Value $_.Properties[5].Value
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name SignatureStatus -Value $_.Properties[6].Value
+            Write-Output $AlertDetail
+            $ConvertToString = $AlertDetail | Out-String
+            Slack($ConvertToString)
+        }
+    }
+
+}
+
 function EventID-8 {
 
     # CreateRemoteThread
@@ -231,6 +307,31 @@ function EventID-11 {
 
 }
 
+function EventID-12 {
+
+    # RegistryEvent
+    $User = $env:COMPUTERNAME + "\" + $env:USERNAME
+    Get-WinEvent -FilterHashtable @{LogName="Microsoft-Windows-Sysmon/Operational";id=12} | ForEach-Object {
+        $TimeNow = Get-Date -Format d
+        $TimeNow += " "
+        $TimeNow += Get-Date -Format T
+        $Diff = New-TimeSpan -Start $_.TimeCreated -End $TimeNow
+        if ($Diff.Days -eq "0" -and $Diff.Hours -eq "0" -and $Diff.Minutes -lt "10") {
+            $AlertDetail = New-Object PSObject
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name "Event ID 12" -Value RegistryEvent
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name Host -Value $User
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name TimeCreated -Value $_.TimeCreated
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name ProcessId -Value $_.Properties[3].Value
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name Image -Value $_.Properties[4].Value
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name TargetObject -Value $_.Properties[5].Value
+            Write-Output $AlertDetail
+            $ConvertToString = $AlertDetail | Out-String
+            Slack($ConvertToString)
+        }
+    }
+
+}
+
 function EventID-13 {
 
     # RegistryEvent
@@ -249,6 +350,30 @@ function EventID-13 {
             $AlertDetail | Add-Member -MemberType Noteproperty -Name Image -Value $_.Properties[4].Value
             $AlertDetail | Add-Member -MemberType Noteproperty -Name TargetObject -Value $_.Properties[5].Value
             $AlertDetail | Add-Member -MemberType Noteproperty -Name Details -Value $_.Properties[6].Value
+            Write-Output $AlertDetail
+            $ConvertToString = $AlertDetail | Out-String
+            Slack($ConvertToString)
+        }
+    }
+
+}
+
+function EventID-16 {
+
+    # SysmonConfig
+    $User = $env:COMPUTERNAME + "\" + $env:USERNAME
+    Get-WinEvent -FilterHashtable @{LogName="Microsoft-Windows-Sysmon/Operational";id=16} | ForEach-Object {
+        $TimeNow = Get-Date -Format d
+        $TimeNow += " "
+        $TimeNow += Get-Date -Format T
+        $Diff = New-TimeSpan -Start $_.TimeCreated -End $TimeNow
+        if ($Diff.Days -eq "0" -and $Diff.Hours -eq "0" -and $Diff.Minutes -lt "10") {
+            $AlertDetail = New-Object PSObject
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name "Event ID 16" -Value SysmonConfig
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name Host -Value $User
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name TimeCreated -Value $_.TimeCreated
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name Configuration -Value $_.Properties[2].Value
+            $AlertDetail | Add-Member -MemberType Noteproperty -Name ConfigurationFileHash -Value $_.Properties[3].Value
             Write-Output $AlertDetail
             $ConvertToString = $AlertDetail | Out-String
             Slack($ConvertToString)
