@@ -106,7 +106,7 @@ function EventID-1 {
         $TimeNow += " "
         $TimeNow += Get-Date -Format T
         $Diff = New-TimeSpan -Start $_.TimeCreated -End $TimeNow
-        if ($Diff.Hours -eq "0" -and $Diff.Minutes -lt "10") {
+        if ($Diff.Days -eq "0" -and $Diff.Hours -eq "0" -and $Diff.Minutes -lt "10") {
             $AlertDetail = New-Object PSObject
             $AlertDetail | Add-Member -MemberType Noteproperty -Name "Event ID 1" -Value ProcessCreate
             $AlertDetail | Add-Member -MemberType Noteproperty -Name Host -Value $User
@@ -135,7 +135,7 @@ function EventID-3 {
         $TimeNow += " "
         $TimeNow += Get-Date -Format T
         $Diff = New-TimeSpan -Start $_.TimeCreated -End $TimeNow
-        if ($Diff.Hours -eq "0" -and $Diff.Minutes -lt "10") {
+        if ($Diff.Days -eq "0" -and $Diff.Hours -eq "0" -and $Diff.Minutes -lt "10") {
             $AlertDetail = New-Object PSObject
             $AlertDetail | Add-Member -MemberType Noteproperty -Name "Event ID 3" -Value NetworkConnect
             $AlertDetail | Add-Member -MemberType Noteproperty -Name Host -Value $User
@@ -166,7 +166,7 @@ function EventID-4 {
         $TimeNow += " "
         $TimeNow += Get-Date -Format T
         $Diff = New-TimeSpan -Start $_.TimeCreated -End $TimeNow
-        if ($Diff.Hours -eq "0" -and $Diff.Minutes -lt "10") {
+        if ($Diff.Days -eq "0" -and $Diff.Hours -eq "0" -and $Diff.Minutes -lt "10") {
             $AlertDetail = New-Object PSObject
             $AlertDetail | Add-Member -MemberType Noteproperty -Name "Event ID 4" -Value SysmonService
             $AlertDetail | Add-Member -MemberType Noteproperty -Name Host -Value $User
@@ -189,7 +189,7 @@ function EventID-8 {
         $TimeNow += " "
         $TimeNow += Get-Date -Format T
         $Diff = New-TimeSpan -Start $_.TimeCreated -End $TimeNow
-        if ($Diff.Hours -eq "0" -and $Diff.Minutes -lt "10") {
+        if ($Diff.Days -eq "0" -and $Diff.Hours -eq "0" -and $Diff.Minutes -lt "10") {
             $AlertDetail = New-Object PSObject
             $AlertDetail | Add-Member -MemberType Noteproperty -Name "Event ID 8" -Value CreateRemoteThread
             $AlertDetail | Add-Member -MemberType Noteproperty -Name Host -Value $User
@@ -215,7 +215,7 @@ function EventID-11 {
         $TimeNow += " "
         $TimeNow += Get-Date -Format T
         $Diff = New-TimeSpan -Start $_.TimeCreated -End $TimeNow
-        if ($Diff.Hours -eq "0" -and $Diff.Minutes -lt "10") {
+        if ($Diff.Days -eq "0" -and $Diff.Hours -eq "0" -and $Diff.Minutes -lt "10") {
             $AlertDetail = New-Object PSObject
             $AlertDetail | Add-Member -MemberType Noteproperty -Name "Event ID 11" -Value FileCreate
             $AlertDetail | Add-Member -MemberType Noteproperty -Name Host -Value $User
@@ -240,7 +240,7 @@ function EventID-13 {
         $TimeNow += " "
         $TimeNow += Get-Date -Format T
         $Diff = New-TimeSpan -Start $_.TimeCreated -End $TimeNow
-        if ($Diff.Hours -eq "0" -and $Diff.Minutes -lt "10") {
+        if ($Diff.Days -eq "0" -and $Diff.Hours -eq "0" -and $Diff.Minutes -lt "10") {
             $AlertDetail = New-Object PSObject
             $AlertDetail | Add-Member -MemberType Noteproperty -Name "Event ID 13" -Value RegistryEvent
             $AlertDetail | Add-Member -MemberType Noteproperty -Name Host -Value $User
