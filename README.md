@@ -1,1 +1,1 @@
-Random scripts for threat hunting.
+Random scripts
