@@ -1,7 +1,1 @@
 Random scripts for threat hunting.
-
-Additional: <br />
-Retrieving Meterpreter C2 from Memory <br />
-Blog: https://www.countercept.com/our-thinking/retrieving-meterpreter-c2-from-memory/ <br />
-PowerShell: https://github.com/countercept/memory-carving-scripts/blob/master/Get-MeterpreterC2.ps1 <br />
-Python: https://github.com/countercept/memory-carving-scripts/blob/master/get_meterpreter_c2.py
